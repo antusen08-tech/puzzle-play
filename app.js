@@ -376,27 +376,46 @@
   // ─── Gallery Functions ───
   function addToGallery(dataUrl, name) {
     const gallery = getGallery();
-    // Resize to thumbnail for storage efficiency
     const img = new Image();
     img.onload = () => {
-      const thumbSize = 400;
-      const c = createCanvas(thumbSize, thumbSize);
+      // Resize to max 800px to save storage
+      const MAX_SIZE = 800;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > MAX_SIZE) {
+          height *= MAX_SIZE / width;
+          width = MAX_SIZE;
+        }
+      } else {
+        if (height > MAX_SIZE) {
+          width *= MAX_SIZE / height;
+          height = MAX_SIZE;
+        }
+      }
+
+      const c = createCanvas(width, height);
       const cx = c.getContext('2d');
-      const s = Math.min(img.width, img.height);
-      const sx = (img.width - s) / 2;
-      const sy = (img.height - s) / 2;
-      cx.drawImage(img, sx, sy, s, s, 0, 0, thumbSize, thumbSize);
+      cx.drawImage(img, 0, 0, width, height);
+
+      const optimizedDataUrl = c.toDataURL('image/jpeg', 0.7);
+
       gallery.unshift({
         id: Date.now(),
         name: name.replace(/\.[^.]+$/, '').slice(0, 30),
-        data: c.toDataURL('image/jpeg', 0.7),
-        fullData: dataUrl,
+        data: optimizedDataUrl,
         date: new Date().toISOString(),
       });
+
       // Keep max 30 images to avoid localStorage limits
       if (gallery.length > 30) gallery.pop();
-      saveGallery(gallery);
-      renderGallery();
+      try {
+        saveGallery(gallery);
+        renderGallery();
+      } catch (err) {
+        alert('Gallery storage is full! Please delete some images.');
+      }
     };
     img.src = dataUrl;
   }
@@ -416,6 +435,8 @@
       img.src = item.data;
       img.alt = item.name;
       img.loading = 'lazy';
+      // CSS object-fit: cover will make the thumbnail look good
+      img.style.objectFit = 'cover';
       div.appendChild(img);
 
       const delBtn = document.createElement('button');
@@ -439,7 +460,7 @@
         const loadImg = new Image();
         loadImg.onload = () => {
           customImage = loadImg;
-          customImage._dataUrl = item.fullData || item.data;
+          customImage._dataUrl = item.data;
           currentImageName = item.name;
           document.querySelectorAll('.image-option').forEach(el => el.classList.remove('selected'));
           uploadLabel.classList.add('has-file');
@@ -449,7 +470,7 @@
           document.querySelector('.nav-tab[data-screen="menu-screen"]').classList.add('active');
           showScreen(menuScreen);
         };
-        loadImg.src = item.fullData || item.data;
+        loadImg.src = item.data;
       });
 
       galleryGrid.appendChild(div);
