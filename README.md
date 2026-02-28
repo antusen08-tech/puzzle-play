@@ -7,6 +7,22 @@ A beautiful, mobile-first jigsaw puzzle game built with vanilla HTML, CSS, and J
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
+## 📱 Screenshots
+
+<p align="center">
+  <img src="screenshots/Main.jpg" width="250" alt="Main Menu" />
+  &nbsp;&nbsp;
+  <img src="screenshots/Gallery.jpg" width="250" alt="Image Gallery" />
+  &nbsp;&nbsp;
+  <img src="screenshots/History.jpg" width="250" alt="History Dashboard" />
+</p>
+
+<p align="center">
+  <em>Main Menu</em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <em>Image Gallery</em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <em>History Dashboard</em>
+</p>
+
 ## ✨ Features
 
 - **🎨 6 Procedural Images** — Built-in canvas-generated scenes (sunset, ocean, mountains, abstract, forest, geometric)
@@ -42,9 +58,13 @@ Then open the URL on your phone or browser.
 ## 📂 Project Structure
 
 ```
-├── index.html    # App structure and screens
-├── style.css     # Design system, animations, responsive styles
-└── app.js        # Game engine, touch handling, gallery/history logic
+├── index.html          # App structure and screens
+├── style.css           # Design system, animations, responsive styles
+├── app.js              # Game engine, touch handling, gallery/history logic
+└── screenshots/        # App screenshots
+    ├── Main.jpg
+    ├── Gallery.jpg
+    └── History.jpg
 ```
 
 ## 🛠️ Technology
@@ -54,12 +74,6 @@ Then open the URL on your phone or browser.
 - **localStorage** — Persistent gallery and history
 - **Touch Events** — Native mobile drag-and-drop
 - **CSS Custom Properties** — Themeable design system
-
-## 📱 Screenshots
-
-| Menu | Game | Gallery | History |
-|------|------|---------|--------|
-| Grid selector, image picker | Drag pieces, timer, moves | Saved images | Past completions |
 
 ## 📄 License
 
